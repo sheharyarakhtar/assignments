@@ -1,0 +1,270 @@
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 1
+
+
+
+
+
+       MCS-51 Family Macro Assembler   A S E M - 5 1   V 1.3
+       =====================================================
+
+
+
+	Source File:	C:\Users\Uzman\Desktop\Project\keypad selftest.asm
+	Object File:	C:\Users\Uzman\Desktop\Project\keypad selftest.hex
+	List File:	C:\Users\Uzman\Desktop\Project\keypad selftest.lst
+
+
+
+ Line  I  Addr  Code            Source
+
+    1:		N      0000	ORG 00H
+    2:
+    3:	  0000	75 90 00	MOV P1,#00
+    4:	  0003	90 03 00	MOV DPTR, #LUT
+    5:
+    6:	  0006	20 90 0B	BACK:	JB P1.0, ROW1
+    7:	  0009	20 91 29		JB P1.1, ROW2
+    8:	  000C	20 92 47		JB P1.2, ROW3
+    9:	  000F	20 93 65		JB P1.3, ROW4
+   10:	  0012	80 F2			SJMP BACK
+   11:
+   12:	  0014			ROW1:
+   13:	  0014	30 94 06		JNB P1.4, C2
+   14:	  0017	74 01			MOV A,#01
+   15:	  0019	11 9B			ACALL DISP
+   16:	  001B	80 E9			SJMP BACK
+   17:
+   18:	  001D	30 95 06	C2:	JNB P1.5, C3
+   19:	  0020	74 02			MOV A, #02
+   20:	  0022	11 9B			ACALL DISP
+   21:	  0024	80 E0			SJMP BACK
+   22:
+   23:	  0026	30 96 06	C3:	JNB P1.6, C4
+   24:	  0029	74 03			MOV A,#03
+   25:	  002B	11 9B			ACALL DISP
+   26:	  002D	80 D7			SJMP BACK
+   27:
+   28:	  002F	74 04		C4:	 MOV A,#4
+   29:	  0031	11 9B			ACALL DISP
+   30:	  0033	80 D1			SJMP BACK
+   31:
+   32:	  0035			ROW2:
+   33:	  0035	30 94 06		JNB P1.4, C5
+   34:	  0038	74 05			MOV A,#5
+   35:	  003A	11 9B			ACALL DISP
+   36:	  003C	80 C8			SJMP BACK
+   37:
+   38:	  003E	30 95 06	C5:	JNB P1.5, C6
+   39:	  0041	74 06			MOV A, #6
+   40:	  0043	11 9B			ACALL DISP
+   41:	  0045	80 BF			SJMP BACK
+   42:
+   43:	  0047	30 96 FD	C6:	JNB P1.6, C6
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 2
+
+
+
+ Line  I  Addr  Code            Source
+
+   44:	  004A	74 07			MOV A,#7
+   45:	  004C	11 9B			ACALL DISP
+   46:	  004E	80 B6			SJMP BACK
+   47:
+   48:	  0050	74 08		C7:	 MOV A,#8
+   49:	  0052	11 9B			ACALL DISP
+   50:	  0054	80 B0			SJMP BACK
+   51:
+   52:	  0056			ROW3:
+   53:	  0056	30 94 06		JNB P1.4, C8
+   54:	  0059	74 09			MOV A,#9
+   55:	  005B	11 9B			ACALL DISP
+   56:	  005D	80 A7			SJMP BACK
+   57:
+   58:	  005F	30 95 06	C8:	JNB P1.5, C9
+   59:	  0062	74 0A			MOV A, #10
+   60:	  0064	11 9B			ACALL DISP
+   61:	  0066	80 9E			SJMP BACK
+   62:
+   63:	  0068	30 96 06	C9:	JNB P1.6, C10
+   64:	  006B	74 0B			MOV A,#11
+   65:	  006D	11 9B			ACALL DISP
+   66:	  006F	80 95			SJMP BACK
+   67:
+   68:	  0071	74 0C		C10:	 MOV A,#12
+   69:	  0073	11 9B			ACALL DISP
+   70:	  0075	80 8F			SJMP BACK
+   71:
+   72:	  0077			ROW4:
+   73:	  0077	30 94 06		JNB P1.4, C11
+   74:	  007A	74 0D			MOV A,#13
+   75:	  007C	11 9B			ACALL DISP
+   76:	  007E	80 86			SJMP BACK
+   77:
+   78:	  0080	30 95 07	C11:	JNB P1.5, C12
+   79:	  0083	74 0E			MOV A, #14
+   80:	  0085	11 9B			ACALL DISP
+   81:	  0087	02 00 06		LJMP BACK
+   82:
+   83:	  008A	30 96 07	C12:	JNB P1.6, C13
+   84:	  008D	74 0F			MOV A,#15
+   85:	  008F	11 9B			ACALL DISP
+   86:	  0091	02 00 06		LJMP BACK
+   87:
+   88:	  0094	74 10		C13:	 MOV A,#16
+   89:	  0096	11 9B			ACALL DISP
+   90:	  0098	02 00 06		LJMP BACK
+   91:
+   92:	  009B	93		DISP: 	MOVC A,@A+DPTR
+   93:	  009C	F5 80			MOV P0,A
+   94:	  009E	E4			CLR A
+   95:	  009F	22			RET
+   96:
+   97:		N      0300	ORG 300H
+   98:	  0300	60		LUT: DB 01100000B ;Look up table starts here
+   99:	  0301	DA		     DB 11011010B
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 3
+
+
+
+ Line  I  Addr  Code            Source
+
+  100:	  0302	F2		     DB 11110010B
+  101:	  0303	EE		     DB 11101110B
+  102:	  0304	66		     DB 01100110B
+  103:	  0305	B6		     DB 10110110B
+  104:	  0306	BE		     DB 10111110B
+  105:	  0307	3E		     DB 00111110B
+  106:	  0308	E0		     DB 11100000B
+  107:	  0309	FE		     DB 11111110B
+  108:	  030A	F6		     DB 11110110B
+  109:	  030B	9C		     DB 10011100B
+  110:	  030C	9E		     DB 10011110B
+  111:	  030D	FC		     DB 11111100B
+  112:	  030E	8E		     DB 10001110B
+  113:	  030F	7A		     DB 01111010B
+  114:
+  115:				     END
+
+
+
+
+
+                     register banks used:  ---
+
+                     no errors
+
+
+
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 4
+
+
+
+
+
+	       L I S T   O F   S Y M B O L S
+	       =============================
+
+
+SYMBOL				  TYPE     VALUE	LINE
+------------------------------------------------------------
+??ASEM_51			  NUMBER    8051
+??VERSION			  NUMBER    0130
+AC				  BIT	      D6
+ACC				  DATA	      E0
+B				  DATA	      F0
+BACK				  CODE	    0006	   6
+C10				  CODE	    0071	  68
+C11				  CODE	    0080	  78
+C12				  CODE	    008A	  83
+C13				  CODE	    0094	  88
+C2				  CODE	    001D	  18
+C3				  CODE	    0026	  23
+C4				  CODE	    002F	  28
+C5				  CODE	    003E	  38
+C6				  CODE	    0047	  43
+C7				  CODE	    0050	  48
+C8				  CODE	    005F	  58
+C9				  CODE	    0068	  63
+CY				  BIT	      D7
+DISP				  CODE	    009B	  92
+DPH				  DATA	      83
+DPL				  DATA	      82
+EA				  BIT	      AF
+ES				  BIT	      AC
+ET0				  BIT	      A9
+ET1				  BIT	      AB
+EX0				  BIT	      A8
+EX1				  BIT	      AA
+EXTI0				  CODE	    0003
+EXTI1				  CODE	    0013
+F0				  BIT	      D5
+IE				  DATA	      A8
+IE0				  BIT	      89
+IE1				  BIT	      8B
+INT0				  BIT	      B2
+INT1				  BIT	      B3
+IP				  DATA	      B8
+IT0				  BIT	      88
+IT1				  BIT	      8A
+LUT				  CODE	    0300	  98
+OV				  BIT	      D2
+P				  BIT	      D0
+P0				  DATA	      80
+P1				  DATA	      90
+P2				  DATA	      A0
+P3				  DATA	      B0
+PCON				  DATA	      87
+PS				  BIT	      BC
+PSW				  DATA	      D0
+PT0				  BIT	      B9
+
+ASEM-51 V1.3                                         Copyright (c) 2002 by W.W. Heinz                                         PAGE 5
+
+
+
+SYMBOL				  TYPE     VALUE	LINE
+------------------------------------------------------------
+PT1				  BIT	      BB
+PX0				  BIT	      B8
+PX1				  BIT	      BA
+RB8				  BIT	      9A
+RD				  BIT	      B7
+REN				  BIT	      9C
+RESET				  CODE	    0000
+RI				  BIT	      98
+ROW1				  CODE	    0014	  12
+ROW2				  CODE	    0035	  32
+ROW3				  CODE	    0056	  52
+ROW4				  CODE	    0077	  72
+RS0				  BIT	      D3
+RS1				  BIT	      D4
+RXD				  BIT	      B0
+SBUF				  DATA	      99
+SCON				  DATA	      98
+SINT				  CODE	    0023
+SM0				  BIT	      9F
+SM1				  BIT	      9E
+SM2				  BIT	      9D
+SP				  DATA	      81
+T0				  BIT	      B4
+T1				  BIT	      B5
+TB8				  BIT	      9B
+TCON				  DATA	      88
+TF0				  BIT	      8D
+TF1				  BIT	      8F
+TH0				  DATA	      8C
+TH1				  DATA	      8D
+TI				  BIT	      99
+TIMER0				  CODE	    000B
+TIMER1				  CODE	    001B
+TL0				  DATA	      8A
+TL1				  DATA	      8B
+TMOD				  DATA	      89
+TR0				  BIT	      8C
+TR1				  BIT	      8E
+TXD				  BIT	      B1
+WR				  BIT	      B6
